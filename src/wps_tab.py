@@ -115,7 +115,7 @@ def on_wifi_scan(root):
 
         print("Запускаємо wash для пошуку WPS точок...")
         stdin, stdout, stderr = ssh.exec_command(f'echo {password} | sudo -S wash -i wlan0mon', get_pty=True)
-        stdout.channel.settimeout(10)
+        stdout.channel.settimeout(20)
 
         start_time = time.time()
         max_duration = 60
