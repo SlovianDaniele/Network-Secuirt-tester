@@ -7,7 +7,7 @@ class Config:
     """
     def __init__(self):
         self.settings = {
-            "host": "37.229.77.80",
+            "host": "",
             "port": "22",
             "username": "kali",
             "password": "kali",

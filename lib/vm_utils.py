@@ -52,6 +52,9 @@ def get_status_vm(timeout=3):
     # print("🔍 Перевірка доступності VM через SSH...")
 
     host = get_ip_from_guestproperty()
+    if host:
+        config.update("host", host)
+
     port = config.get("port")
     username = config.get("username")
     password = config.get("password")
@@ -108,6 +111,38 @@ def get_status_vm(timeout=3):
             'status': 'error',
             'ip': None,
             'message': 'Не вдалося підключитися'
+        }
+
+
+# Налаштування ресурсів VM
+def set_resources(vm_name, cpu, ram):
+    try:
+        # Конвертуємо RAM з GB в MB (VirtualBox використовує MB)
+        ram_mb = int(ram) * 1024
+        
+        subprocess.run([
+            "C:/Program Files/Oracle/VirtualBox/VBoxManage",
+            "modifyvm", vm_name,
+            "--cpus", str(cpu),
+            "--memory", str(ram_mb)
+        ], check=True, capture_output=True, text=True)
+        
+        return {
+            'success': True,
+            'message': f'Ресурси VM оновлено: CPU={cpu}, RAM={ram}GB'
+        }
+    except subprocess.CalledProcessError as e:
+        error_msg = e.stderr if e.stderr else str(e)
+        print(f"Помилка оновлення ресурсів VM: {error_msg}")
+        return {
+            'success': False,
+            'message': f'Не вдалося оновити ресурси VM: {error_msg}'
+        }
+    except Exception as e:
+        print(f"Несподівана помилка при оновленні ресурсів VM: {e}")
+        return {
+            'success': False,
+            'message': f'Помилка: {str(e)}'
         }
 
 

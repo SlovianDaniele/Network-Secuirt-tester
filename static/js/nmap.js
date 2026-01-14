@@ -209,7 +209,7 @@ const handleStartNmapScan = async () => {
             statusElement.textContent = `Статус: ${status}`;
         }
     };
-    window.addEventListener('nmapProgress', handleProgress);
+    window.addEventListener('nmap-progress', handleProgress);
 
     try {
         // Виклик API з усіма параметрами
@@ -223,14 +223,14 @@ const handleStartNmapScan = async () => {
             params.verbose
         );
 
-        window.removeEventListener('nmapProgress', handleProgress);
+        window.removeEventListener('nmap-progress', handleProgress);
 
         // Показати результати
         showSections(['#nmapResultsSection']);
         renderNmapResults(data, params);
 
     } catch (error) {
-        window.removeEventListener('nmapProgress', handleProgress);
+        window.removeEventListener('nmap-progress', handleProgress);
         console.error('Помилка сканування Nmap:', error);
 
         setHTMLContent('nmapResults', `

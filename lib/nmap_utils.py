@@ -188,7 +188,7 @@ def nmap_scan(api, ports='standard', target='192.168.1.0/24', timing='3',
     
     try:
         # Підключаємося до VM
-        api.dispatch_event('nmapProgress', {
+        api.dispatch_event('nmap-progress', {
             'progress': 0,
             'status': 'Підключення до VM...'
         })
@@ -197,7 +197,7 @@ def nmap_scan(api, ports='standard', target='192.168.1.0/24', timing='3',
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh.connect(host, username=username, password=password)
         
-        api.dispatch_event('nmapProgress', {
+        api.dispatch_event('nmap-progress', {
             'progress': 5,
             'status': 'Початок сканування на VM...'
         })
@@ -219,7 +219,7 @@ def nmap_scan(api, ports='standard', target='192.168.1.0/24', timing='3',
             # Оновлюємо прогрес кожні 2 секунди
             if elapsed - last_progress_update >= 2:
                 progress = min((elapsed / estimated_time) * 85 + 5, 90)
-                api.dispatch_event('nmapProgress', {
+                api.dispatch_event('nmap-progress', {
                     'progress': progress,
                     'status': f'Сканування на VM... ({int(elapsed)}с)'
                 })
@@ -269,7 +269,7 @@ def nmap_scan(api, ports='standard', target='192.168.1.0/24', timing='3',
         
         if return_code != 0 and not xml_output.strip():
             error_msg = stderr_output or 'Невідома помилка nmap на VM'
-            api.dispatch_event('nmapProgress', {
+            api.dispatch_event('nmap-progress', {
                 'progress': 100,
                 'status': f'Помилка: {error_msg[:100]}'
             })
@@ -284,7 +284,7 @@ def nmap_scan(api, ports='standard', target='192.168.1.0/24', timing='3',
             }
         
         # Парсимо XML
-        api.dispatch_event('nmapProgress', {
+        api.dispatch_event('nmap-progress', {
             'progress': 95,
             'status': 'Обробка результатів...'
         })
@@ -322,7 +322,7 @@ def nmap_scan(api, ports='standard', target='192.168.1.0/24', timing='3',
         else:
             result['raw_output'] = xml_output[:5000] if xml_output else ''
         
-        api.dispatch_event('nmapProgress', {
+        api.dispatch_event('nmap-progress', {
             'progress': 100,
             'status': 'Сканування завершено'
         })
@@ -331,7 +331,7 @@ def nmap_scan(api, ports='standard', target='192.168.1.0/24', timing='3',
         
     except paramiko.AuthenticationException:
         error_msg = 'Помилка автентифікації SSH. Перевірте логін/пароль.'
-        api.dispatch_event('nmapProgress', {
+        api.dispatch_event('nmap-progress', {
             'progress': 100,
             'status': error_msg
         })
@@ -346,7 +346,7 @@ def nmap_scan(api, ports='standard', target='192.168.1.0/24', timing='3',
         }
     except paramiko.SSHException as e:
         error_msg = f'Помилка SSH підключення: {str(e)}'
-        api.dispatch_event('nmapProgress', {
+        api.dispatch_event('nmap-progress', {
             'progress': 100,
             'status': error_msg
         })
@@ -361,7 +361,7 @@ def nmap_scan(api, ports='standard', target='192.168.1.0/24', timing='3',
         }
     except socket.error as e:
         error_msg = f'Не вдалося підключитися до VM: {str(e)}'
-        api.dispatch_event('nmapProgress', {
+        api.dispatch_event('nmap-progress', {
             'progress': 100,
             'status': error_msg
         })
@@ -376,7 +376,7 @@ def nmap_scan(api, ports='standard', target='192.168.1.0/24', timing='3',
         }
     except Exception as e:
         error_msg = f'Помилка виконання nmap на VM: {str(e)}'
-        api.dispatch_event('nmapProgress', {
+        api.dispatch_event('nmap-progress', {
             'progress': 100,
             'status': error_msg
         })

@@ -39,7 +39,9 @@ class Api:
         }
         
         # Завантажити налаштування з файлу, якщо він існує
-        self.settings_file = 'settings.json'
+        from lib.network_utils import get_local_path
+        local_path = get_local_path()
+        self.settings_file = os.path.join(local_path, 'settings.json')
         if os.path.exists(self.settings_file):
             try:
                 with open(self.settings_file, 'r', encoding='utf-8') as f:
@@ -330,10 +332,28 @@ class Api:
         """Оновити налаштування"""
         if 'theme' in data:
             self.settings_store['theme'] = data['theme']
+        
+        vm_resources_updated = False
         if 'vm_cpu' in data:
             self.settings_store['vm_cpu'] = int(data['vm_cpu'])
+            vm_resources_updated = True
         if 'vm_ram' in data:
             self.settings_store['vm_ram'] = int(data['vm_ram'])
+            vm_resources_updated = True
+        
+        # Оновити ресурси VM, якщо змінилися CPU або RAM
+        if vm_resources_updated:
+            try:
+                from lib.config import config
+                vm_name = config.get("vm_name")
+                cpu = self.settings_store.get('vm_cpu', 2)
+                ram = self.settings_store.get('vm_ram', 4)
+                
+                result = vm_utils.set_resources(vm_name, cpu, ram)
+                if not result.get('success', False):
+                    print(f"Попередження: {result.get('message', 'Невідома помилка')}")
+            except Exception as e:
+                print(f"Помилка оновлення ресурсів VM: {e}")
         
         self._save_settings()
         

@@ -6,12 +6,13 @@ from lib.network_utils import get_networks_correct_form, mask_value
 
 username = config.get("username")
 password = config.get("password")
-host = config.get("host")
 
 # Сканування Wi-Fi мереж
 def wps_wifi_scan(api):
     api.dispatch_event('message', {'message': '[WPS]: Починаємо роботу...', 'type': 'info'})
     networks = []
+
+    host = config.get("host")
 
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
