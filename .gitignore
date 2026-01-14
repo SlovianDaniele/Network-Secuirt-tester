@@ -1,11 +1,41 @@
-src/__pycache__
-src/dist
-src/build
-src/handshake
-src/dict
-src/hashcat
-
-temp
-
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
 .env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Project files and folders
+settings.json
+lib/handshake/
+lib/dict/*
+lib/convert/
+
+!lib/dict/rockyou.txt.zip
+!lib/dict/probable-v2-wpa-top4800.txt.zip
