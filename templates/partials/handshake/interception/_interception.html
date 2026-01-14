@@ -1,0 +1,114 @@
+<div class="embedded-content">
+    <div class="container">
+        <div class="card card-dark">
+            <div class="card-body p-4">
+                <h2 class="h3 fw-semibold mb-4"><i class="bi bi-broadcast me-2"></i> Перехоплення Handshake</h2>
+                <p class="text-secondary mb-4">
+                    Перехоплення Handshake — процес захоплення файлу рукостискання (handshake) між клієнтом та точкою 
+                    доступу Wi-Fi. Handshake містить зашифровані дані автентифікації, необхідні для подальшого підбору 
+                    пароля методом brute force. Для перехоплення використовується техніка деавторизації (deauth), яка 
+                    примусово відключає клієнта від мережі, змушуючи його повторно підключатися та генерувати новий handshake.
+                </p>
+
+                <button 
+                    class="btn btn-primary mb-4" 
+                    onclick="startHandshakeScan()"
+                    id="handshakeScanButton"
+                    aria-label="Почати сканування мереж"
+                    tabindex="0"
+                >
+                    <i class="bi bi-search me-2"></i>Сканувати мережі
+                </button>
+
+                <div id="handshakeNetworksSection" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="h5 mb-0">Доступні мережі</h4>
+                        <span id="handshakeNetworksCount" class="badge bg-secondary">0 мереж</span>
+                    </div>
+                    
+                    <!-- Таблиця мереж -->
+                    <div id="handshakeNetworksList" class="mb-4"></div>
+                    
+                    <!-- Інформація про вибрану мережу -->
+                    <div id="handshakeSelectedNetworkInfo" style="display: none;" class="mt-4">
+                        <div class="alert alert-info mb-3">
+                            <h5 class="alert-heading"><i class="bi bi-wifi me-2"></i>Вибрана мережа</h5>
+                            <p id="handshakeSelectedNetworkDetails" class="mb-0"></p>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="deauthMethod">Метод деавторизації</label>
+                            <select 
+                                class="form-select form-select-dark" 
+                                id="deauthMethod"
+                                aria-label="Вибір методу деавторизації"
+                            >
+                                <option value="deauth">Deauth (Деавтентифікація)</option>
+                                <option value="disassoc">Disassociation (Від'єднання)</option>
+                                <option value="both">Обидва методи</option>
+                            </select>
+                            <small class="text-secondary">
+                                Deauth — надсилає пакети деавтентифікації для відключення клієнтів.
+                            </small>
+                        </div>
+
+                        <div id="deauthOptions" style="display: none;">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="packetsPerSec">Пакетів за секунду</label>
+                                    <input 
+                                        type="number" 
+                                        class="form-control form-control-dark" 
+                                        id="packetsPerSec" 
+                                        value="10"
+                                        min="1" 
+                                        max="100"
+                                        aria-label="Кількість пакетів за секунду"
+                                    >
+                                    <small class="text-secondary">Рекомендовано: 10-20 пакетів/с</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="captureDuration">Тривалість (секунди)</label>
+                                    <input 
+                                        type="number" 
+                                        class="form-control form-control-dark" 
+                                        id="captureDuration" 
+                                        value="70"
+                                        min="30" 
+                                        max="600"
+                                        aria-label="Тривалість перехоплення в секундах"
+                                    >
+                                    <small class="text-secondary">Рекомендовано: 60-120 секунд</small>
+                                </div>
+                            </div>
+                            <button 
+                                class="btn btn-primary w-100" 
+                                onclick="startHandshakeCapture()"
+                                aria-label="Почати перехоплення handshake"
+                                tabindex="0"
+                            >
+                                <i class="bi bi-play-fill me-2"></i>Почати перехоплення
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Секція прогресу перехоплення -->
+                <div id="handshakeProgressSection" style="display: none;" class="mt-4">
+                    <h4 class="h5 mb-3"><i class="bi bi-hourglass-split me-2"></i>Перехоплення в процесі</h4>
+                    <div id="handshakeProgress"></div>
+                    <div class="d-flex justify-content-between mt-2 small text-secondary">
+                        <span id="handshakeCaptureStatus">Підготовка...</span>
+                        <span id="handshakePacketsSent">Пакетів відправлено: 0</span>
+                    </div>
+                </div>
+
+                <!-- Секція результатів -->
+                <div id="handshakeResultsSection" style="display: none;" class="mt-4">
+                    <h4 class="h5 mb-3"><i class="bi bi-clipboard-check me-2"></i>Результати</h4>
+                    <div id="handshakeResults"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

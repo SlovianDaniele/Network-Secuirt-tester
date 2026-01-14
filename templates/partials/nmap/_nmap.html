@@ -1,0 +1,208 @@
+<div class="embedded-content">
+    <div class="container">
+        <div class="card card-dark">
+            <div class="card-body p-4">
+                <h2 class="h3 fw-semibold mb-4"><i class="bi bi-diagram-3 me-2"></i> Nmap Сканування</h2>
+                <p class="text-secondary mb-4">
+                    Nmap (Network Mapper) — інструмент для дослідження мережі та сканування безпеки, який дозволяє 
+                    виявляти активні хости, відкриті порти, версії сервісів та операційні системи в мережі. 
+                    Сканування допомагає ідентифікувати потенційні вразливості та небезпечні конфігурації мережевих 
+                    пристроїв та сервісів.
+                </p>
+
+                <div class="disclaimer mb-4">
+                    <i class="bi bi-info-circle"></i>
+                    <strong>Примітка:</strong> Для використання Nmap потрібне підключення до мережі.
+                </div>
+
+                <!-- Ціль сканування -->
+                <div class="mb-4">
+                    <label class="form-label" for="nmapTarget">Ціль сканування</label>
+                    <input 
+                        type="text" 
+                        class="form-control form-control-dark" 
+                        id="nmapTarget"
+                        placeholder="192.168.1.0/24 або 192.168.1.1"
+                        value="192.168.1.0/24"
+                        aria-label="IP адреса або діапазон мережі для сканування"
+                        tabindex="0"
+                    >
+                    <small class="text-secondary">Формат: IP адреса (192.168.1.1) або підмережа (192.168.1.0/24)</small>
+                </div>
+
+                <!-- Вибір портів -->
+                <div class="mb-4">
+                    <label class="form-label">Вибір портів</label>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input 
+                                class="form-check-input" 
+                                type="radio" 
+                                name="portSelection" 
+                                id="portStandard"
+                                value="standard" 
+                                checked
+                                aria-label="Стандартний вибір портів"
+                                tabindex="0"
+                            >
+                            <label class="form-check-label" for="portStandard">
+                                Стандарт (програма обере автоматично)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input 
+                                class="form-check-input" 
+                                type="radio" 
+                                name="portSelection" 
+                                id="portAll"
+                                value="all"
+                                aria-label="Сканувати всі порти"
+                                tabindex="0"
+                            >
+                            <label class="form-check-label" for="portAll">
+                                Всі порти (1-65535)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input 
+                                class="form-check-input" 
+                                type="radio" 
+                                name="portSelection" 
+                                id="portManual"
+                                value="manual"
+                                aria-label="Вказати порти вручну"
+                                tabindex="0"
+                            >
+                            <label class="form-check-label" for="portManual">
+                                Вручну
+                            </label>
+                        </div>
+                    </div>
+                    <div id="manualPortInput" style="display: none;">
+                        <input 
+                            type="text" 
+                            class="form-control form-control-dark" 
+                            id="manualPorts"
+                            placeholder="80,443,22,445 або 80-1000"
+                            aria-label="Вручну введені порти"
+                            tabindex="0"
+                        >
+                        <small class="text-secondary">Формат: 80,443,22 або 80-1000 або 80,443,8000-9000</small>
+                    </div>
+                </div>
+
+                <!-- Агресивність сканування -->
+                <div class="mb-4">
+                    <label class="form-label" for="nmapTiming">Агресивність сканування (-T)</label>
+                    <select 
+                        class="form-select form-control-dark" 
+                        id="nmapTiming"
+                        aria-label="Вибір швидкості сканування"
+                        tabindex="0"
+                    >
+                        <option value="0">T0 — Параноїдальне (дуже повільне, важко виявити)</option>
+                        <option value="1">T1 — Скритне (повільне)</option>
+                        <option value="2">T2 — Ввічливе (зменшує навантаження)</option>
+                        <option value="3" selected>T3 — Нормальне (за замовчуванням)</option>
+                        <option value="4">T4 — Агресивне (швидке)</option>
+                        <option value="5">T5 — Божевільне (максимальна швидкість)</option>
+                    </select>
+                    <small class="text-secondary">Визначає швидкість відправлення пакетів</small>
+                </div>
+
+                <!-- Додаткові опції -->
+                <div class="mb-4">
+                    <label class="form-label">Додаткові опції</label>
+                    <div class="form-check">
+                        <input 
+                            class="form-check-input" 
+                            type="checkbox" 
+                            id="nmapActiveScan"
+                            aria-label="Активне сканування"
+                            tabindex="0"
+                        >
+                        <label class="form-check-label" for="nmapActiveScan">
+                            <strong>-A</strong> — Активне сканування (ОС, версії, скрипти, traceroute)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input 
+                            class="form-check-input" 
+                            type="checkbox" 
+                            id="nmapVersionDetection"
+                            checked
+                            aria-label="Ідентифікація версій сервісів"
+                            tabindex="0"
+                        >
+                        <label class="form-check-label" for="nmapVersionDetection">
+                            <strong>-sV</strong> — Ідентифікація версій сервісів
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input 
+                            class="form-check-input" 
+                            type="checkbox" 
+                            id="nmapOsDetection"
+                            aria-label="Визначення операційної системи"
+                            tabindex="0"
+                        >
+                        <label class="form-check-label" for="nmapOsDetection">
+                            <strong>-O</strong> — Визначення операційної системи
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input 
+                            class="form-check-input" 
+                            type="checkbox" 
+                            id="nmapVerbose"
+                            aria-label="Детальний вивід"
+                            tabindex="0"
+                        >
+                        <label class="form-check-label" for="nmapVerbose">
+                            <strong>-v</strong> — Детальний вивід (verbose)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Команда виконання -->
+                <div class="mb-4">
+                    <label class="form-label" for="nmapCommand">Команда виконання</label>
+                    <input 
+                        type="text" 
+                        class="form-control form-control-dark" 
+                        id="nmapCommand"
+                        value="nmap -sV -T3 192.168.1.0/24"
+                        aria-label="Згенерована команда nmap"
+                        readonly
+                    >
+                    <small class="text-secondary">Команда генерується автоматично на основі вибраних опцій</small>
+                </div>
+
+                <!-- Кнопка старту -->
+                <button 
+                    class="btn btn-primary" 
+                    onclick="handleStartNmapScan()"
+                    aria-label="Почати сканування Nmap"
+                    tabindex="0"
+                    id="nmapStartButton"
+                >
+                    <i class="bi bi-play-circle me-2"></i>Старт
+                </button>
+
+                <!-- Прогрес -->
+                <div id="nmapProgressSection" style="display: none;" class="mt-4">
+                    <div id="nmapProgress"></div>
+                    <div class="mt-2 small text-secondary">
+                        <span id="nmapScanStatus">Статус: Очікування...</span>
+                    </div>
+                </div>
+
+                <!-- Результати -->
+                <div id="nmapResultsSection" style="display: none;" class="mt-4">
+                    <h4 class="h5 mb-3">Результати сканування</h4>
+                    <div id="nmapResults"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

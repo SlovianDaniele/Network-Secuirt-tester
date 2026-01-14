@@ -1,0 +1,57 @@
+<!-- Dictionary -->
+<div class="tab-pane" id="dictionary" role="tabpanel">
+    <div class="mb-4 d-flex gap-2 align-items-end">
+        <div class="flex-grow-1">
+            <label class="form-label" for="dictionaryFile">Словник</label>
+            <select 
+                class="form-select form-control-dark" 
+                id="dictionaryFile"
+                aria-label="Вибір словника"
+            >
+                <option value="" disabled selected>Оберіть словник</option>
+            </select>
+        </div>
+        <button 
+            type="button" 
+            class="btn btn-outline-secondary mt-2" 
+            onclick="loadDictionaryFiles()"
+            aria-label="Оновити список словників"
+            tabindex="0"
+        >
+            <i class="bi bi-arrow-clockwise me-1"></i>Оновити
+        </button>
+    </div>
+    <div class="mb-4 d-flex gap-2 align-items-end">
+        <div class="flex-grow-1">
+            <label class="form-label" for="dictionaryHandshake">Файл handshake</label>
+            <select 
+                class="form-select form-control-dark" 
+                id="dictionaryHandshake"
+                aria-label="Вибір файлу handshake"
+            >
+                <option value="" disabled selected>Оберіть файл handshake</option>
+            </select>
+        </div>
+        <button 
+            type="button" 
+            class="btn btn-outline-secondary mt-2" 
+            onclick="loadDictionaryHandshakeFiles()"
+            aria-label="Оновити список файлів handshake"
+            tabindex="0"
+        >
+        <i class="bi bi-arrow-clockwise me-1"></i>Оновити
+        </button>
+    </div>
+    <button 
+        class="btn btn-primary" 
+        onclick="startDictionary()"
+        aria-label="Старт dictionary атаки"
+        tabindex="0"
+    >
+        <i class="bi bi-play-circle me-2"></i>Старт
+    </button>
+    <div id="dictionaryProgress" class="mt-4" style="display: none;">
+        <div id="dictionaryProgressBar"></div>
+    </div>
+    <div id="dictionaryResults" class="mt-4" style="display: none;"></div>
+</div>

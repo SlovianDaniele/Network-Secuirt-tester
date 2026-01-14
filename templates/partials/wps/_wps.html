@@ -1,0 +1,78 @@
+<div class="embedded-content">
+    <div class="container">
+        <div class="card card-dark">
+            <div class="card-body p-4">
+                <h2 class="h3 fw-semibold mb-4"><i class="bi bi-broadcast me-2"></i> WPS Тестування</h2>
+                <p class="text-secondary mb-4">
+                    WPS (Wi-Fi Protected Setup) тестування дозволяє перевірити безпеку Wi-Fi мереж на вразливості, 
+                    пов'язані з протоколом WPS. Інструмент сканує доступні мережі з увімкненим WPS та виконує 
+                    тестування на вразливість до Pixie Dust атаки, яка може дозволити отримати WPS PIN та пароль мережі.
+                </p>
+
+                <button 
+                    class="btn btn-primary mb-4" 
+                    onclick="startWPSScan()" 
+                    id="wpsStartButton"
+                    aria-label="Сканувати доступні Wi-Fi мережі"
+                    tabindex="0"
+                >
+                    <i class="bi bi-search me-2"></i>Сканувати мережі
+                </button>
+
+                <!-- Список мереж -->
+                <div id="wpsNetworksSection" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="h5 mb-0">Доступні мережі</h4>
+                        <span id="wpsNetworksCount" class="badge bg-secondary">0 мереж</span>
+                    </div>
+                    
+                    <!-- Таблиця мереж -->
+                    <div id="wpsNetworksList" class="mb-4"></div>
+                    <!-- Інформація про вибрану мережу -->
+                    <div id="wpsSelectedNetworkInfo" style="display: none;" class="mt-4">
+                        <div class="alert alert-info mb-3">
+                            <h5 class="alert-heading"><i class="bi bi-wifi me-2"></i>Вибрана мережа</h5>
+                            <p id="wpsSelectedNetworkDetails" class="mb-0"></p>
+                        </div>
+
+                        <!-- Секція команди -->
+                        <div class="mb-4">
+                            <label class="form-label">Команда виконання</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-dark" id="wpsCommand"
+                                    value="reaver -i wlan0mon -b {bssid} -K -N">
+                            </div>
+                        </div>
+
+                        <button 
+                            class="btn btn-primary w-100" 
+                            onclick="startWPSTest()" 
+                            id="wpsTestButton"
+                            aria-label="Почати WPS тестування"
+                            tabindex="0"
+                        >
+                            <i class="bi bi-play-fill me-2"></i>Почати WPS тестування
+                        </button>
+
+                    </div>
+                </div>
+
+                <!-- Секція прогресу тестування -->
+                <div id="wpsProgressSection" style="display: none;" class="mt-4">
+                    <h4 class="h5 mb-3"><i class="bi bi-hourglass-split me-2"></i>Тестування в процесі</h4>
+                    <div id="wpsProgressBar"></div>
+                    <div class="d-flex justify-content-between mt-2 small text-secondary">
+                        <span id="wpsTestStatus">Виконується перевірка на вразливість WPS Pixie Dust...</span>
+                        <span id="wpsTestTime">Макс. час: 5 хвилини</span>
+                    </div>
+                </div>
+
+                <!-- Секція результатів -->
+                <div id="wpsResultsSection" style="display: none;" class="mt-4">
+                    <h4 class="h5 mb-3"><i class="bi bi-clipboard-check me-2"></i>Результати</h4>
+                    <div id="wpsResults"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

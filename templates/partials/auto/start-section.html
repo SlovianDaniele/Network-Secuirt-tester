@@ -1,0 +1,59 @@
+<!-- Секція початку тестування -->
+<section class="card card-dark mb-5" id="autoStartSection">
+    <div class="card-body p-5 text-center mx-auto" style="max-width: 700px;">
+        <div class="mb-4">
+            <i class="bi bi-shield-lock fs-1 text-primary"></i>
+        </div>
+        <h2 class="h3 fw-semibold mb-4">Автоматичне тестування безпеки Wi-Fi</h2>
+        
+        <div class="text-start mb-4">
+            <p class="text-secondary mb-3">
+                Комплексна перевірка безпеки Wi-Fi мережі в автоматичному режимі включає:
+            </p>
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="card card-dark h-100 border-primary border-opacity-25">
+                        <div class="card-body text-center p-3">
+                            <i class="bi bi-search fs-4 text-primary mb-2"></i>
+                            <h6 class="mb-1">Сканування</h6>
+                            <p class="small text-secondary mb-0">WPS та Handshake аналіз мереж</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-dark h-100 border-warning border-opacity-25">
+                        <div class="card-body text-center p-3">
+                            <i class="bi bi-key fs-4 text-warning mb-2"></i>
+                            <h6 class="mb-1">WPS Pixie Dust</h6>
+                            <p class="small text-secondary mb-0">Тестування WPS вразливостей</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-dark h-100 border-danger border-opacity-25">
+                        <div class="card-body text-center p-3">
+                            <i class="bi bi-book fs-4 text-danger mb-2"></i>
+                            <h6 class="mb-1">Атака по словнику</h6>
+                            <p class="small text-secondary mb-0">4800+ найпоширеніших паролів</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert alert-info small mb-0">
+                <i class="bi bi-info-circle me-2"></i>
+                <strong>Увага:</strong> Тестування може зайняти декілька хвилин. 
+                Переконайтеся, що віртуальна машина підключена та працює коректно.
+            </div>
+        </div>
+        
+        <button 
+            class="btn btn-primary btn-lg px-5" 
+            id="autoStartButton"
+            onclick="startAutoScanning()"
+            aria-label="Почати автоматичне тестування безпеки"
+        >
+            <i class="bi bi-play-circle me-2"></i>Почати сканування
+        </button>
+    </div>
+</section>

@@ -1,0 +1,91 @@
+<div class="embedded-content">
+    <div class="container">
+        <div class="card card-dark">
+            <div class="card-body p-4">
+                <h2 class="h3 fw-semibold mb-4"><i class="bi bi-file-text me-2"></i> Генерація словника</h2>
+                <p class="text-secondary mb-4">
+                    Генерація персоналізованого словника паролів на основі особистої інформації цілі. Інструмент 
+                    використовує методологію CUPP (Common User Passwords Profiler) для створення словника, який 
+                    включає комбінації імен, дат народження, назв компаній та інших особистих даних. Згенерований 
+                    словник використовується для підбору паролів методом brute force під час тестування безпеки Wi-Fi мереж.
+                </p>
+
+                <form id="cuppForm">
+                    <div class="cupp-form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Ім'я</label>
+                            <input type="text" class="form-control form-control-dark" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Прізвище</label>
+                            <input type="text" class="form-control form-control-dark" name="surname" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Псевдонім</label>
+                            <input type="text" class="form-control form-control-dark" name="nick">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Дата народження (DDMMYYYY)</label>
+                            <input type="text" class="form-control form-control-dark" name="birthdate"
+                                placeholder="01011990">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Ім'я дружини/чоловіка</label>
+                            <input type="text" class="form-control form-control-dark" name="wife">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Псевдонім дружини/чоловіка</label>
+                            <input type="text" class="form-control form-control-dark" name="wifen">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Дата народження дружини/чоловіка</label>
+                            <input type="text" class="form-control form-control-dark" name="wifeb" placeholder="01011990">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Ім'я дитини</label>
+                            <input type="text" class="form-control form-control-dark" name="kid">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Псевдонім дитини</label>
+                            <input type="text" class="form-control form-control-dark" name="kidn">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Дата народження дитини</label>
+                            <input type="text" class="form-control form-control-dark" name="kidb" placeholder="01012010">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Кличка домашнього улюбленця</label>
+                            <input type="text" class="form-control form-control-dark" name="pet">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Назва компанії</label>
+                            <input type="text" class="form-control form-control-dark" name="company">
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label class="form-label">Ключові слова</label>
+                        <textarea class="form-control form-control-dark" name="words" rows="3"
+                            placeholder="Введіть ключові слова через кому"></textarea>
+                    </div>
+
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" id="useSpecialChars" name="special_chars">
+                        <label class="form-check-label" for="useSpecialChars">
+                            Спец. символи (!, @, #, …)
+                        </label>
+                    </div>
+
+                    <button type="button" class="btn btn-primary mt-4" onclick="startCupp()">
+                        <i class="bi bi-play-circle me-2"></i>Старт
+                    </button>
+                </form>
+
+                <div id="cuppResultsSection" style="display: none;" class="mt-4">
+                    <h4 class="h5 mb-3">Результати</h4>
+                    <div id="cuppResults"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

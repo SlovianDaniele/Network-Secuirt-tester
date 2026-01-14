@@ -1,0 +1,110 @@
+<!-- Brute Force -->
+<div class="tab-pane show active" id="bruteforce" role="tabpanel">
+    <div class="mb-4 d-flex gap-2 align-items-end">
+        <div class="flex-grow-1">
+            <label class="form-label" for="bruteforceHandshake">Файл handshake</label>
+            <select 
+                class="form-select form-control-dark" 
+                id="bruteforceHandshake"
+                aria-label="Вибір файлу handshake"
+            >
+                <option value="" disabled selected>Оберіть файл handshake</option>
+            </select>
+        </div>
+        <button 
+            type="button" 
+            class="btn btn-outline-secondary mt-2" 
+            onclick="loadHandshakeFiles()"
+            aria-label="Оновити список файлів"
+            tabindex="0"
+        >
+            <i class="bi bi-arrow-clockwise me-1"></i>Оновити
+        </button>
+    </div>
+    <div class="mb-4">
+        <label class="form-label" for="passwordLength">Довжина паролю</label>
+        <input 
+            type="number" 
+            class="form-control form-control-dark" 
+            id="passwordLength" 
+            value="8" 
+            min="4" 
+            max="20"
+            aria-label="Довжина паролю"
+        >
+    </div>
+    <div class="mb-4">
+        <div class="form-check">
+            <input 
+                class="form-check-input" 
+                type="checkbox" 
+                id="useLowercase"
+                aria-describedby="useLowercaseHelp"
+            >
+            <label class="form-check-label" for="useLowercase">
+                ?l &nbsp; малі літери a-z
+            </label>
+        </div>
+        <div class="form-check">
+            <input 
+                class="form-check-input" 
+                type="checkbox" 
+                id="useUppercase"
+                aria-describedby="useUppercaseHelp"
+            >
+            <label class="form-check-label" for="useUppercase">
+                ?u &nbsp; великі A-Z
+            </label>
+        </div>
+        <div class="form-check">
+            <input 
+                class="form-check-input" 
+                type="checkbox" 
+                id="useDigits" 
+                checked
+                aria-describedby="useDigitsHelp"
+            >
+            <label class="form-check-label" for="useDigits">
+                ?d &nbsp; цифри 0-9
+            </label>
+        </div>
+        <div class="form-check">
+            <input 
+                class="form-check-input" 
+                type="checkbox" 
+                id="useSpecial"
+                aria-describedby="useSpecialHelp"
+            >
+            <label class="form-check-label" for="useSpecial">
+                ?s &nbsp; спецсимволи !@#$%^&amp;*
+            </label>
+        </div>
+    </div>
+    <div class="mb-4">
+        <label class="form-label" for="bruteforceCommand">Команда виконання</label>
+        <input 
+            type="text" 
+            class="form-control form-control-dark" 
+            id="bruteforceCommand"
+            value="hashcat -m 2500 {file} -a 3 ?d?d?d?d?d?d?d?d"
+            aria-label="Команда hashcat"
+            readonly
+        >
+    </div>
+    <button 
+        class="btn btn-primary" 
+        onclick="startBruteforce()"
+        aria-label="Старт brute force атаки"
+        tabindex="0"
+    >
+        <i class="bi bi-play-circle me-2"></i>Старт
+    </button>
+    <div id="bruteforceProgress" class="mt-4" style="display: none;">
+        <div id="bruteforceProgressBar"></div>
+        <div class="mt-2 small text-secondary">
+            <span id="bruteforceTime">Час: 0с</span> |
+            <span id="bruteforceProcess">Процес: 0%</span>
+        </div>
+    </div>
+    <div id="bruteforceResults" class="mt-4" style="display: none;"></div>
+</div>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="uk" data-theme="{{ theme|default('dark') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pentester Tools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        {{ read_static('css/style.css') }}
+    </style>
+</head>
+<body>
+    <div class="app-container">        
+        <!-- Основний макет -->
+        <div class="app-main">
+            <!-- Бічне меню -->
+            <aside class="app-sidebar">
+                {% set current_page = page|default('auto') %}
+                <a href="#" onclick="navigateToPage('auto'); return false;" data-page="auto" class="sidebar-item{% if current_page == 'auto' %} active{% endif %}">
+                    <i class="bi bi-magic"></i>
+                    <span>Автоматичний режим</span>
+                </a>
+                <div class="sidebar-category">Інструменти</div>
+                <a href="#" onclick="navigateToPage('wps'); return false;" data-page="wps" class="sidebar-item{% if current_page == 'wps' %} active{% endif %}">
+                    <i class="bi bi-wifi"></i>
+                    <span>WPS</span>
+                </a>
+                <a href="#" onclick="return false;" class="sidebar-item">
+                    <i class="bi bi-shield-lock"></i>
+                    <span>Handshake</span>
+                </a>
+                <a href="#" onclick="navigateToPage('interception'); return false;" data-page="interception" class="sidebar-item sidebar-subitem{% if current_page == 'interception' %} active{% endif %}">
+                    <i class="bi bi-broadcast"></i>
+                    <span>Перехоплення</span>
+                </a>
+                <a href="#" onclick="navigateToPage('decryption'); return false;" data-page="decryption" class="sidebar-item sidebar-subitem{% if current_page == 'decryption' %} active{% endif %}">
+                    <i class="bi bi-unlock"></i>
+                    <span>Розшифрування</span>
+                </a>
+                <a href="#" onclick="navigateToPage('nmap'); return false;" data-page="nmap" class="sidebar-item{% if current_page == 'nmap' %} active{% endif %}">
+                    <i class="bi bi-diagram-3"></i>
+                    <span>Nmap</span>
+                </a>
+                <a href="#" onclick="navigateToPage('dictionaries'); return false;" data-page="dictionaries" class="sidebar-item{% if current_page == 'dictionaries' %} active{% endif %}">
+                    <i class="bi bi-file-text"></i>
+                    <span>Словники</span>
+                </a>
+                <a href="#" onclick="navigateToPage('settings'); return false;" data-page="settings" class="sidebar-item{% if current_page == 'settings' %} active{% endif %}">
+                    <i class="bi bi-gear"></i>
+                    <span>Налаштування</span>
+                </a>
+            </aside>
+            
+            <!-- Область контенту -->
+            <main class="app-content">
+                <!-- Динамічний контент -->
+                <div id="dynamicContent" class="content-wrapper">
+                    {% set current_page = page|default('auto') %}
+                    {% if current_page == 'auto' %}
+                        {% include 'partials/auto/_auto.html' %}
+                    {% elif current_page == 'wps' %}
+                        {% include 'partials/wps/_wps.html' %}
+                    {% elif current_page == 'interception' %}
+                        {% include 'partials/handshake/interception/_interception.html' %}
+                    {% elif current_page == 'decryption' %}
+                        {% include 'partials/handshake/decryption/_decryption.html' %}
+                    {% elif current_page == 'nmap' %}
+                        {% include 'partials/nmap/_nmap.html' %}
+                    {% elif current_page == 'dictionaries' %}
+                        {% include 'partials/dictionaries/_dictionaries.html' %}
+                    {% elif current_page == 'settings' %}
+                        {% include 'partials/settings/_settings.html' %}
+                    {% else %}
+                        {% include 'partials/auto/_auto.html' %}
+                    {% endif %}
+                </div>
+            </main>
+        </div>
+
+        <!-- Глобальна консоль -->
+        <div id="globalConsole" class="global-console collapsed">
+            <div class="console-header">
+                <button class="console-toggle" onclick="toggleConsole()">
+                    <i class="bi bi-terminal"></i>
+                    <span>Консоль</span>
+                    <i class="bi bi-chevron-up console-chevron"></i>
+                </button>
+                <button class="console-clear" onclick="clearConsole()" title="Очистити консоль">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+            <div class="console-body">
+                <div class="console-output" id="consoleOutput">
+                    <div class="console-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Нижній заголовок -->
+        <header class="app-footer">
+            <div class="d-flex align-items-center gap-4">
+                <div class="d-flex align-items-center gap-2">
+                    <span>Статус віртуальної машини:</span>
+                    <span id="vmStatusIndicator" class="status-indicator bg-secondary"></span>
+                    <span id="vmStatusText" class="text-secondary small">Перевірка...</span>
+                </div>
+            </div>
+        </header>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        {{ read_static('js/shared.js') }}
+    </script>
+    <script>
+        {{ read_static('js/auto.js') }}
+    </script>
+    <script>
+        {{ read_static('js/wps.js') }}
+    </script>
+    <script>
+        {{ read_static('js/handshake.js') }}
+    </script>
+    <script>
+        {{ read_static('js/nmap.js') }}
+    </script>
+    <script>
+        {{ read_static('js/dictionaries.js') }}
+    </script>
+    <script>
+        {{ read_static('js/settings.js') }}
+    </script>
+    <script>
+        {{ read_static('js/index.js') }}
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<div class="embedded-content">
+    <div class="container">
+        <section class="settings-section card card-dark">
+            <div class="card-body p-4">
+                <h2 class="h3 fw-semibold mb-4"><i class="bi bi-gear me-2"></i> Загальні налаштування</h2>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label">Виберіть тему</label>
+                        <div class="d-flex gap-3 mb-3">
+                            <div class="text-center">
+                                <div class="theme-preview light mb-2" data-theme="light" onclick="selectTheme('light')"
+                                    id="theme-light"></div>
+                                <div class="small">Світла</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="theme-preview dark mb-2" data-theme="dark" onclick="selectTheme('dark')"
+                                    id="theme-dark"></div>
+                                <div class="small">Темна</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="h3 fw-semibold mb-4"><i class="bi bi-cpu me-2"></i>Налаштування віртуальної машини</h2>
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="vmCpu" class="form-label">Кількість CPU ядер</label>
+                        <input type="number" class="form-control form-control-dark" id="vmCpu" min="1" max="16" value="2">
+                        <small class="text-secondary">Рекомендовано: 2-4 ядра</small>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="vmRam" class="form-label">Об'єм оперативної пам'яті (GB)</label>
+                        <input type="number" class="form-control form-control-dark" id="vmRam" min="1" max="32" value="4">
+                        <small class="text-secondary">Рекомендовано: 4-8 GB</small>
+                    </div>
+                </div>    
+                
+                <div class="d-flex gap-3 justify-content-end mt-4">
+                    <button class="btn btn-outline-secondary" onclick="window.location.href='/'">
+                        Скасувати
+                    </button>
+                    <button class="btn btn-primary" onclick="saveSettings()">
+                        <i class="bi bi-check-circle me-2"></i>Зберегти
+                    </button>
+                </div>                
+            </div>
+        </section>
+    </div>
+</div>
